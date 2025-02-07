@@ -1,5 +1,6 @@
 # constants.py
 PLAYER_TURN_SPEED = 300  # degrees per second
+PLAYER_SPEED = 200
 
 PLAYER_RADIUS = 20
 
