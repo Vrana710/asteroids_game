@@ -32,7 +32,7 @@ class AsteroidField:
         self.spawn_timer = 0.0  # Tracks time for spawning new asteroids
 
     def spawn(self, radius, position, velocity):
-        asteroid = Asteroid(position.x, position.y, radius)
+        asteroid = Asteroid(position.x, position.y, radius, velocity)
         asteroid.velocity = velocity
 
     def update(self, dt):

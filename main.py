@@ -57,7 +57,7 @@ def main():
             for asteroid in asteroids:
                 if shot.rect.colliderect(asteroid.rect):  # Check if shot and asteroid collide
                     shot.kill()  # Remove the shot from the game
-                    asteroid.kill()  # Remove the asteroid from the game
+                    asteroid.split()  # Split the asteroid if it’s large enough
 
         asteroid_field.update(dt)
         updatable.update(dt)
