@@ -1,3 +1,4 @@
+# main.py
 import pygame
 
 from asteroid import Asteroid
@@ -25,9 +26,6 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
 
-    updatable.add(player)  # Add player to updatable
-    drawable.add(player)  # Add player to drawable
-
     while True:
         dt = clock.tick(60) / 1000  # Seconds per frame
 
@@ -36,8 +34,15 @@ def main():
                 pygame.quit()
                 return
 
-        asteroid_field.update(dt)  # Now actually using asteroid_field
+        asteroid_field.update(dt)
         updatable.update(dt)
+
+        # Collision detection
+        for asteroid in asteroids:
+            if player.check_collision(asteroid):
+                print("Game over!")
+                pygame.quit()
+                return
 
         screen.fill((0, 0, 0))
         for sprite in drawable:

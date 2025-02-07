@@ -1,15 +1,14 @@
 import pygame
 from constants import *
+from circleshape import CircleShape
 
 
-class Player(pygame.sprite.Sprite):  # Ensure it correctly inherits Sprite
+class Player(CircleShape):  # Inherit from CircleShape
     def __init__(self, x, y):
-        super().__init__()  # Properly initialize Sprite class
+        super().__init__(x, y, PLAYER_RADIUS)  # Call CircleShape constructor
 
-        self.position = pygame.Vector2(x, y)
-        self.velocity = pygame.Vector2(0, 0)
         self.rotation = 0  # Initial rotation
-        self.radius = PLAYER_RADIUS
+        self.velocity = pygame.Vector2(0, 0)
 
         # Create a rect for sprite group compatibility
         self.image = pygame.Surface((PLAYER_RADIUS * 2, PLAYER_RADIUS * 2), pygame.SRCALPHA)
