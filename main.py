@@ -1,5 +1,4 @@
 import pygame
-
 from asteroid import Asteroid
 from constants import *
 from player import Player
@@ -46,15 +45,22 @@ def main():
             if shot:  # Only add the shot if it's not None (i.e., cooldown is over)
                 shots.add(shot)
 
-        asteroid_field.update(dt)
-        updatable.update(dt)
-
         # Collision detection between player and asteroids
         for asteroid in asteroids:
             if player.check_collision(asteroid):
                 print("Game over!")
                 pygame.quit()
                 return
+
+        # Bullet and asteroid collision detection
+        for shot in shots:
+            for asteroid in asteroids:
+                if shot.rect.colliderect(asteroid.rect):  # Check if shot and asteroid collide
+                    shot.kill()  # Remove the shot from the game
+                    asteroid.kill()  # Remove the asteroid from the game
+
+        asteroid_field.update(dt)
+        updatable.update(dt)
 
         # Fill the screen with black
         screen.fill((0, 0, 0))
