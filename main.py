@@ -7,7 +7,7 @@ from pygame.sprite import Group
 def main():
     pygame.init()
 
-    # Set up the game screen and window caption
+    # Set up the game screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Asteroids Game")
 
@@ -25,7 +25,7 @@ def main():
 
     # Game loop
     while True:
-        dt = clock.tick(60) / 1000  # Amount of seconds between frames (delta time)
+        dt = clock.tick(60) / 1000  # Delta time
 
         # Handle events
         for event in pygame.event.get():
@@ -39,9 +39,9 @@ def main():
         # Fill the screen with black
         screen.fill((0, 0, 0))
 
-        # Manually draw all drawable objects
-        for obj in drawable:
-            obj.draw(screen)
+        # Manually draw player instead of using `Group.draw()`
+        for drawable_obj in drawable:
+            drawable_obj.draw(screen)
 
         # Update the display
         pygame.display.flip()

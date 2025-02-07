@@ -1,16 +1,19 @@
 import pygame
 from constants import *
 
-class Player(pygame.sprite.Sprite):
+
+class Player(pygame.sprite.Sprite):  # Ensure it correctly inherits Sprite
     def __init__(self, x, y):
-        super().__init__()
+        super().__init__()  # Properly initialize Sprite class
+
         self.position = pygame.Vector2(x, y)
         self.velocity = pygame.Vector2(0, 0)
         self.rotation = 0  # Initial rotation
         self.radius = PLAYER_RADIUS
 
-        # Create a rect for compatibility with sprite groups (for collision detection and rendering)
-        self.rect = pygame.Rect(self.position.x - self.radius, self.position.y - self.radius, self.radius * 2, self.radius * 2)
+        # Create a rect for sprite group compatibility
+        self.image = pygame.Surface((PLAYER_RADIUS * 2, PLAYER_RADIUS * 2), pygame.SRCALPHA)
+        self.rect = self.image.get_rect(center=(x, y))
 
     def triangle(self):
         # Calculate the vertices of the spaceship (triangle)
@@ -33,7 +36,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_s]:  # Move backward
             self.move(dt, reverse=True)
 
-        # Update the player's rect based on the position after moving
+        # Update the rect position
         self.rect.center = self.position
 
     def rotate(self, direction, dt):
