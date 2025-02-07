@@ -5,40 +5,32 @@ from player import Player
 
 
 def main():
-    # Initialize pygame
     pygame.init()
 
-    # Create the game window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Asteroids Game")
 
-    # Create the player object
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
-    # Clock to limit FPS
     clock = pygame.time.Clock()
 
-    # Game loop
-    running = True
-    while running:
-        # Event handling
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)  # Initialize player at the center
+
+    while True:
+        dt = clock.tick(60) / 1000  # Get the delta time in seconds
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return  # Exit the game loop if the window is closed
+
+        player.update(dt)  # Call the player's update method
 
         # Fill the screen with black
-        screen.fill("black")
+        screen.fill((0, 0, 0))
 
         # Draw the player
         player.draw(screen)
 
-        # Update the screen
+        # Refresh the screen
         pygame.display.flip()
-
-        # Limit FPS to 60
-        clock.tick(60)
-
-    # Quit pygame
-    pygame.quit()
 
 
 if __name__ == "__main__":
