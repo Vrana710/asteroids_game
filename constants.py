@@ -1,5 +1,7 @@
 # constants.py
 
+PLAYER_RADIUS = 20
+
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
