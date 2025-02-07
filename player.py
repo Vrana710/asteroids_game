@@ -9,6 +9,7 @@ class Player(CircleShape):  # Inherit from CircleShape
         super().__init__(x, y, PLAYER_RADIUS)  # Call CircleShape constructor
 
         self.rotation = 0  # Initial rotation
+        self.timer = 0  # Initialize the shoot cooldown timer
         self.velocity = pygame.Vector2(0, 0)
 
         # Create a rect for sprite group compatibility
@@ -39,6 +40,10 @@ class Player(CircleShape):  # Inherit from CircleShape
         # Update the rect position
         self.rect.center = self.position
 
+        # Update the timer: decrease by dt
+        if self.timer > 0:
+            self.timer -= dt
+
     def rotate(self, direction, dt):
         self.rotation += PLAYER_TURN_SPEED * direction * dt
 
@@ -53,8 +58,13 @@ class Player(CircleShape):  # Inherit from CircleShape
         pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), 2)
 
     def shoot(self):
-        # Create a shot at the player's position
-        forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        velocity = forward * PLAYER_SHOOT_SPEED
-        shot = Shot(self.position.x, self.position.y, velocity)
-        return shot
+        # Create a shot at the player's position only if the cooldown is over
+        if self.timer <= 0:
+            forward = pygame.Vector2(0, 1).rotate(self.rotation)
+            velocity = forward * PLAYER_SHOOT_SPEED
+            shot = Shot(self.position.x, self.position.y, velocity)
+
+            # Reset the timer for the next shot
+            self.timer = PLAYER_SHOOT_COOLDOWN
+            return shot
+        return None

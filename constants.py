@@ -1,11 +1,11 @@
 # constants.py
 PLAYER_TURN_SPEED = 300  # degrees per second
 PLAYER_SPEED = 200
-
 PLAYER_RADIUS = 20
 # Add these constants for shot behavior
 SHOT_RADIUS = 5
 PLAYER_SHOOT_SPEED = 500
+PLAYER_SHOOT_COOLDOWN = 0.3  # Cooldown period for shooting in seconds
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720

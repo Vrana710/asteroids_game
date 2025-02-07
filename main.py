@@ -43,7 +43,8 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             shot = player.shoot()
-            shots.add(shot)
+            if shot:  # Only add the shot if it's not None (i.e., cooldown is over)
+                shots.add(shot)
 
         asteroid_field.update(dt)
         updatable.update(dt)
