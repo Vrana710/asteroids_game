@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from circleshape import CircleShape
+from shot import Shot
 
 
 class Player(CircleShape):  # Inherit from CircleShape
@@ -50,3 +51,10 @@ class Player(CircleShape):  # Inherit from CircleShape
     def draw(self, screen):
         # Draw the spaceship as a triangle
         pygame.draw.polygon(screen, (255, 255, 255), self.triangle(), 2)
+
+    def shoot(self):
+        # Create a shot at the player's position
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        velocity = forward * PLAYER_SHOOT_SPEED
+        shot = Shot(self.position.x, self.position.y, velocity)
+        return shot
